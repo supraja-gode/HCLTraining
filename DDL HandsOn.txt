@@ -1,0 +1,101 @@
+->Write a query to create a table 'electricity_connection_type'.
+mysql> create table electricity_connection_type (id int(11) primary key,connection_name varchar(20));
+Query OK, 0 rows affected (0.90 sec)
+
+->Write a query to create a table 'slab'.
+mysql> create table slab(id int(11) primary key,connection_type_id int(11) NOT NULL,from_unit int(11) NOT NULL,to_unit int(11) NOT NULL,rate Double NOT NULL,CONSTRAINT fk_id FOREIGN KEY (id) REFERENCES electricity_connection_type(id));
+Query OK, 0 rows affected (0.56 sec)
+
+->Write a query to create a table 'building_type'.
+mysql> create table building_type(id int(11) primary key,name varchar(100) NOT NULL,connection_type_id int(11) NOT NULL,CONSTRAINT fk_connection_type_id FOREIGN KEY(connection_type_id) REFERENCES electricity_connection_type(id));
+Query OK, 0 rows affected (1.80 sec)
+
+->Write a query to create a table 'building'
+mysql> create table building(id int(11) primary key,owner_name varchar(100) NOT NULL,address varchar(100) NOT NULL,building_type_id int(11) NOT NULL,contact_number varchar(100) NOT NULL,email_address varchar(100) NOT NULL,CONSTRAINT fk_building_type_id FOREIGN KEY(building_type_id) REFERENCES building_type(id));
+Query OK, 0 rows affected (0.67 sec)
+
+->Write a query to alter the column 'owner_name' to 'building_owner_name' in the table 'building'.
+mysql> alter table building change owner_name building_owner_name varchar(100);
+Query OK, 0 rows affected (2.31 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+->Write a query to change the datatype of the column address in the table 'building' to varchar(255).
+mysql> alter table building modify column address varchar(255);
+Query OK, 0 rows affected (1.06 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+->Write a query to create a constraint which allows only 'commercial' or 'home' connection_name in the 'electricity_connection_type' table.Specify constraint name as 'check_connection_name'.
+mysql> alter table electricity_connection_type add CONSTRAINT check_connection_name check(connection_name="commercial" or connection_name="home");
+Query OK, 0 rows affected (0.40 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+->Write a query to rename table 'building' to 'building_details'
+mysql> alter table building rename to building_details;
+Query OK, 0 rows affected (0.54 sec)
+
+->Write a query to drop table 'slab'
+mysql> drop table slab;
+Query OK, 0 rows affected (0.36 sec)
+
+->Write a query to drop table 'building_details'.
+mysql> drop table building_details;
+Query OK, 0 rows affected (0.17 sec)
+
+->Write a query to insert any 2 records into the 'electricity_connection_type' table.
+mysql> insert into electricity_connection_type values(1,'home');
+Query OK, 1 row affected (0.13 sec)
+
+mysql> insert into electricity_connection_type values(2,'commercial');
+Query OK, 1 row affected (0.11 sec)
+
+mysql> create table slab(id int(11) primary key,connection_type_id int(11) NOT NULL,from_unit int(11) NOT NULL,to_unit int(11) NOT NULL,rate Double NOT NULL,CONSTRAINT fk_id FOREIGN KEY (id) REFERENCES electricity_connection_type(id));
+Query OK, 0 rows affected (0.53 sec)
+
+->Write a query to insert any 3 records into the 'slab' table.
+mysql> insert into slab values(1,11,100,10,50.0);
+Query OK, 1 row affected (0.13 sec)
+
+mysql> insert into slab values(2,12,101,11,51.0);
+Query OK, 1 row affected (0.04 sec)
+
+->) Write a query to insert any 5 records into the 'building_type' table
+mysql> insert into building_type values(1,'home',1);
+Query OK, 1 row affected (0.09 sec)
+mysql> insert into building_type values(2,'commercial',2);
+Query OK, 1 row affected (0.05 sec)
+mysql> insert into building_type values(4,'home',1);
+Query OK, 1 row affected (0.05 sec)
+
+mysql> insert into building_type values(3,'commercial',2);
+Query OK, 1 row affected (0.05 sec)
+
+mysql> insert into building_type values(5,'home',2);
+Query OK, 1 row affected (0.09 sec)
+
+->Write a query to change the from_unit value from 0 to 1 in the 'slab' table.
+mysql> update slab set from_unit=1 where id=1;
+Query OK, 1 row affected (0.18 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> delete from slab;
+Query OK, 2 rows affected (0.09 sec)
+
+mysql> desc slab;
++--------------------+---------+------+-----+---------+-------+
+| Field              | Type    | Null | Key | Default | Extra |
++--------------------+---------+------+-----+---------+-------+
+| id                 | int(11) | NO   | PRI | NULL    |       |
+| connection_type_id | int(11) | NO   |     | NULL    |       |
+| from_unit          | int(11) | NO   |     | NULL    |       |
+| to_unit            | int(11) | NO   |     | NULL    |       |
+| rate               | double  | NO   |     | NULL    |       |
++--------------------+---------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+->Write a query to delete the entire details of the table 'slab'.
+mysql> select * from slab;
+Empty set (0.00 sec)
+
+->Write a query to delete the rows from the table 'building_type' where the electricity connection is home .
+mysql> delete from building_type where connection_type_id=1;
+Query OK, 2 rows affected (0.06 sec)

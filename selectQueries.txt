@@ -1,0 +1,151 @@
+->Write a query to display the entire contents of the 'electricity_connection_type'.Display the records in ascending order based on their connection name.
+mysql> select * from electricity_connection_type ORDER BY id ASC;
++----+-----------------+
+| id | connection_name |
++----+-----------------+
+|  1 | home            |
+|  2 | commercial      |
+|  3 | home            |
+|  4 | home            |
+|  5 | commercial      |
++----+-----------------+
+5 rows in set (0.04 sec)
+
+->Write a query to display the entire contents of the building_type table, sorted by name in ascending order.
+mysql> select * from building_type ORDER BY name ASC;
++----+------------+--------------------+
+| id | name       | connection_type_id |
++----+------------+--------------------+
+|  2 | commercial |                  2 |
+|  3 | commercial |                  2 |
+|  1 | home       |                  1 |
+|  5 | home       |                  2 |
++----+------------+--------------------+
+4 rows in set (0.00 sec)
+
+->Write a query to display the entire contents of the 'building'.Display the records in ascending order based on owner name.
+mysql> select * from building ORDER BY owner_name ASC;
++----+------------+-----------+------------------+----------------+---------------+
+| id | owner_name | address   | building_type_id | contact_number | email_address |
++----+------------+-----------+------------------+----------------+---------------+
+|  2 | ganesh     | hyderabad |                3 | 972378627      | gan@abc.in    |
+|  1 | mahesh     | chennai   |                2 | 983627         | mah@abc.in    |
+|  3 | suresh     | bangalore |                3 | 9537289922     | sur@abc.in    |
++----+------------+-----------+------------------+----------------+---------------+
+3 rows in set (0.00 sec)
+
+->Write a query to display all 'meter_number' from meter table.
+mysql> select * from meter;
++----+--------------+-------------+
+| id | meter_number | building_id |
++----+--------------+-------------+
+|  1 | 1201         |           2 |
+|  2 | 1202         |           2 |
+|  3 | 1203         |           3 |
+|  4 | 1204         |           2 |
+|  5 | 1205         |           3 |
++----+--------------+-------------+
+5 rows in set (0.04 sec)
+
+->Write a query to display the owner_name and contact_number of all building, Display the records in ascending order based on owner_name.
+mysql> select owner_name,contact_number from building ORDER BY contact_number ASC;
++------------+----------------+
+| owner_name | contact_number |
++------------+----------------+
+| suresh     | 9537289922     |
+| ganesh     | 972378627      |
+| mahesh     | 983627         |
++------------+----------------+
+3 rows in set (0.13 sec)
+
+->Write a query to display the details of the building whose owner_name is 'Nicholas'.
+mysql> select * from building where owner_name='Nicholas';
++----+------------+---------+------------------+----------------+---------------+
+| id | owner_name | address | building_type_id | contact_number | email_address |
++----+------------+---------+------------------+----------------+---------------+
+|  4 | Nicholas   | vizag   |                3 | 97478289922    | nic@abc.in    |
++----+------------+---------+------------------+----------------+---------------+
+1 row in set (0.23 sec)
+
+->Write a query to display the total_units, payable_amount, fine_amount of all bills , sorted by total_units in descending order.
+mysql>  select total_units,payable_amount,fine_amount from bill ORDER BY total_units DESC;
++-------------+----------------+-------------+
+| total_units | payable_amount | fine_amount |
++-------------+----------------+-------------+
+|           6 |           1000 |         900 |
+|           6 |           1200 |         800 |
+|           4 |           1500 |        1000 |
+|           3 |            900 |        7500 |
++-------------+----------------+-------------+
+4 rows in set (0.03 sec)
+
+->Write a query to display the details of all the bills whose 'total_units' greater than 1000, sorted by total_units in descending order.
+mysql> select * from bill where total_units>1000;
++----+----------+-------+------+------------+-------------+----------------+----------+--------------+-------------+
+| id | meter_id | month | year | due_date   | total_units | payable_amount | is_payed | payment_date | fine_amount |
++----+----------+-------+------+------------+-------------+----------------+----------+--------------+-------------+
+|  5 |        1 |     8 | 2002 | 2002-07-20 |      100000 |           1100 |      110 | 2002-05-20   |        5500 |
++----+----------+-------+------+------------+-------------+----------------+----------+--------------+-------------+
+1 row in set (0.05 sec)
+
+->Write a query to display the details of all the bills whose 'total_units' greater than 10000, sorted by total_units in descending order.
+mysql> select * from bill where due_date='2017-10-01' ORDER BY payable_amount DESC;
++----+----------+-------+------+------------+-------------+----------------+----------+--------------+-------------+
+| id | meter_id | month | year | due_date   | total_units | payable_amount | is_payed | payment_date | fine_amount |
++----+----------+-------+------+------------+-------------+----------------+----------+--------------+-------------+
+|  2 |        1 |     9 | 2001 | 2017-10-01 |           4 |           1500 |      125 | 2001-08-20   |        1000 |
+|  3 |        2 |    11 | 2001 | 2017-10-01 |           6 |           1200 |      120 | 2001-09-20   |         800 |
+|  4 |        2 |    11 | 2001 | 2017-10-01 |           3 |            900 |       90 | 2000-11-20   |        7500 |
++----+----------+-------+------+------------+-------------+----------------+----------+--------------+-------------+
+3 rows in set (0.06 sec)
+
+->Write a query to display the owner_name, address and contact_number of the buildings which does not have an email_address, sorted by owner_name in ascending order.
+mysql> select * from building where email_address='' ORDER BY owner_name ASC;
++----+------------+---------+------------------+----------------+---------------+
+| id | owner_name | address | building_type_id | contact_number | email_address |
++----+------------+---------+------------------+----------------+---------------+
+|  5 | ramesh     | pune    |                1 | 9782647829     |               |
++----+------------+---------+------------------+----------------+---------------+
+1 row in set (0.00 sec)
+
+->Write a query to display the entire details of the building whose owner_name starts with the letter 'M', sorted by owner_name in ascending order.
+mysql> select * from building where owner_name LIKE 'm%' ORDER BY owner_name ASC;
++----+------------+---------+------------------+----------------+---------------+
+| id | owner_name | address | building_type_id | contact_number | email_address |
++----+------------+---------+------------------+----------------+---------------+
+|  1 | mahesh     | chennai |                2 | 983627         | mah@abc.in    |
+|  6 | mohan      | mumbai  |                2 | 9836727829     | moh@abc.in    |
++----+------------+---------+------------------+----------------+---------------+
+2 rows in set (0.05 sec)
+
+->Write a query to display the entire details of the building whose building_type_id is 2, sorted by owner_name in ascending order.
+mysql> select * from building where building_type_id=2 ORDER BY owner_name ASC;
++----+------------+---------+------------------+----------------+---------------+
+| id | owner_name | address | building_type_id | contact_number | email_address |
++----+------------+---------+------------------+----------------+---------------+
+|  1 | mahesh     | chennai |                2 | 983627         | mah@abc.in    |
+|  6 | mohan      | mumbai  |                2 | 9836727829     | moh@abc.in    |
++----+------------+---------+------------------+----------------+---------------+
+2 rows in set (0.07 sec)
+
+->Write a query to display the entire contents of the slab table, sorted by from_unit in ascending order.
+mysql> select * from slab ORDER BY from_unit ASC;
++----+--------------------+-----------+---------+------+
+| id | connection_type_id | from_unit | to_unit | rate |
++----+--------------------+-----------+---------+------+
+|  1 |                 11 |       100 |      10 |   50 |
+|  4 |                 14 |       250 |    1100 |  800 |
+|  2 |                 12 |       300 |    1000 |  300 |
+|  3 |                 13 |       400 |     900 |  400 |
++----+--------------------+-----------+---------+------+
+4 rows in set (0.10 sec)
+
+->Write a query to display the details of the electricity_reading whose total_units per day is between 500 and 1000, sorted by total_units in ascending order.
+mysql> select * from electricity_reading where total_unit between 500 and 1000;
+
+->Write a query to display the meter_id and total_units of electricity_reading whose 13th hour reading is lesser than the 14th hour reading, sorted by total_units in descending order.
+mysql> select meter_id,total_unit from electricity_reading where h13>h14 ORDER BY total_unit DESC;
+
+
+
+
