@@ -1,0 +1,102 @@
+1)Write a query to display the average 8th hour unit consumption from electricity reading for all users.Give an alias name to the average 8th hour consumption as 'average_8th_hour_consumption'.
+mysql> select avg(h8) as 8th_hour_consumption from  electricity_reading;
++----------------------+
+| 8th_hour_consumption |
++----------------------+
+|               5.0000 |
++----------------------+
+1 row in set (0.04 sec)
+
+2)Write a query to display the average unit of electricity consumption for all the users.Give an alias name to the average units as 'average_units_of_electricity'.
+mysql> insert into bill values(2,122,9,2020,'2020-12-15',60,20000,6000,'2020-12-11',2000.00);
+Query OK, 1 row affected (0.12 sec)
+
+mysql> select * from bill;
++----+----------+-------+------+------------+-------------+----------------+----------+--------------+-------------+
+| id | meter_id | month | year | due_date   | total_units | payable_amount | i6_payed | payment_date | fine_amount |
++----+----------+-------+------+------------+-------------+----------------+----------+--------------+-------------+
+|  1 |      123 |     7 | 2020 | 2020-12-14 |          50 |          10000 |     5000 | 2020-12-10   |       20000 |
+|  2 |      122 |     9 | 2020 | 2020-12-15 |          60 |          20000 |     6000 | 2020-12-11   |        2000 |
++----+----------+-------+------+------------+-------------+----------------+----------+--------------+-------------+
+2 rows in set (0.00 sec)
+
+3)Write a query to display the average payable amount from bill where payable_amount is greater than 10000.Give an alias name to the average payable amount as 'average_payable_amount'.
+
+mysql> select avg(payable_amount) as average_payable_amount from bill where payable_amount>10000;
++------------------------+
+| average_payable_amount |
++------------------------+
+|                  20000 |
++------------------------+
+1 row in set (0.00 sec)
+
+4)Write a query to display the average of fine amount, whose payment date is on the year 2018.Give an alias name to the average fine amount as 'average_fine_amount'.
+
+mysql> select avg(fine_amount) as average_fine_amount from bill where (extract(year from payment_date))=2018 ;
++---------------------+
+| average_fine_amount |
++---------------------+
+|               11000 |
++---------------------+
+1 row in set (0.00 sec)
+
+5)Write a query to display the sum of payable amount from bill.Give an alias name to the sum of payable amount as 'sum_payable_amount'.
+mysql> select sum(payable_amount) as sum_payable_amount from bill;
++--------------------+
+| sum_payable_amount |
++--------------------+
+|              30000 |
++--------------------+
+1 row in set (0.00 sec)
+mysql> select * from bill;
++----+----------+-------+------+------------+-------------+----------------+----------+--------------+-------------+
+| id | meter_id | month | year | due_date   | total_units | payable_amount | i6_payed | payment_date | fine_amount |
++----+----------+-------+------+------------+-------------+----------------+----------+--------------+-------------+
+|  1 |      123 |     7 | 2020 | 2021-12-12 |          50 |          10000 |     5000 | 2020-12-10   |       20000 |
+|  2 |      122 |     9 | 2020 | 2021-11-14 |          60 |          20000 |     6000 | 2020-12-11   |        2000 |
++----+----------+-------+------+------------+-------------+----------------+----------+--------------+-------------+
+2 rows in set (0.00 sec)
+
+6)Write a query to display the sum of payable amount with due date '2017-10-01'.Give an alias name to the sum of payable amount as 'sum_payable_amount'.
+mysql> select sum(payable_amount) as sum_payable_amount from bill where due_date<'2017-10-01';
++--------------------+
+| sum_payable_amount |
++--------------------+
+|               NULL |
++--------------------+
+1 row in set (0.11 sec)
+
+7)Write a query to display the minimum total units consumed by all users from electricity reading table. Give an alias name to the minimum total units as 'min_total_units'.
+mysql> select sum(payable_amount) as sum_payable_amount from bill where due_date>'2017-10-01';
++--------------------+
+| sum_payable_amount |
++--------------------+
+|              30000 |
++--------------------+
+1 row in set (0.00 sec)
+
+8)Write a query to display the second minimum fine amount from bill.Give an alias name to the second minimum fine amount as 'second_min_fine_amount'.
+mysql> select fine_amount as second_min_fine_amount from bill having fine_amount>(min(fine_amount));
++------------------------+
+| second_min_fine_amount |
++------------------------+
+|                  20000 |
++------------------------+
+1 row in set (0.00 sec)
+
+10)Write a query to display the standard deviation of the fine amount, whose payment date is on the year 2018.Give an alias name to the standard deviation to the fine amount as 'standard_deviation_amount'.
+mysql> select stddev(fine_amount) as standard_deviation_amount from bill where extract(year from payment_date)=2018;
++---------------------------+
+| standard_deviation_amount |
++---------------------------+
+|                      NULL |
++---------------------------+
+1 row in set (0.00 sec)
+
+mysql> select stddev(fine_amount) as standard_deviation_amount from bill where extract(year from payment_date)=2020;
++---------------------------+
+| standard_deviation_amount |
++---------------------------+
+|                      9000 |
++---------------------------+
+1 row in set (0.00 sec)
